@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: Dev-Interview-DevOps
+  displayName: 'Updating Dev Api'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(ac288a2e-3409-4f05-8c47-36df96c4a1f8)'
+    appType: 'webApp'
+    appName: 'dev-interview-devops'
+    deployToSlotOrASE: true
+    resourceGroupName: 'interview-devops-dev-env'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
+  displayName: 'Run a multi-line script'
