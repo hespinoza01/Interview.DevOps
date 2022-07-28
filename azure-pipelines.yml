@@ -9,6 +9,19 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(ac288a2e-3409-4f05-8c47-36df96c4a1f8)'
+    appType: 'webApp'
+    WebAppName: 'dev-interview-devops'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'interview-devops-dev-env'
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'webDeploy'
+
 variables:
   buildConfiguration: 'Release'
 
